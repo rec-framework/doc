@@ -1,37 +1,36 @@
-## Welcome to GitHub Pages
+# Rec framework
 
-You can use the [editor on GitHub](https://github.com/rec-framework/rec-framework.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Rec is a data processing framework focus on stream-based processing
+for different data formats like CSV or JSON. It mainly focus on JVM
+platform and currently migrating to multiple platforms like native
+or .NET Core
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Get started
 
-### Markdown
+Given you have following csv file for employees of a company (`employee.csv`)
+```csv
+0001, Kimmy Leo  , Software Engineer, 1999/01/09
+0002, Graphy Chan, Project Manager  , 1983/07/04
+0003, Angilina Y , Tech Consultant  , 1996/13/15
+```
+then you want to check their DOB correct or not, what you can do is just
+write a script(`checking.js`)
+```javascript
+const format = java.lang.String.format;
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+const {println, csv, stateless, dummy} = rec;
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+csv("employee.csv", "ID, name, job_title, dob")
+  .tee(stateless(function({name, dob}) {
+    if (parseInt(dob.split("/")[1]) > 12) {
+      println(format("Error: employee [%s] has incorrect dob [%s]", 
+        name, dob));
+    }
+  })).to(dummy());
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Documentations
 
-### Jekyll Themes
+You can see [guide](/guide.html) or [API document](api.html) for details.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/rec-framework/rec-framework.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+For more receipts, you can refer [Best practices](best-practice.html).
