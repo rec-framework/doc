@@ -6,18 +6,19 @@
 Rec using a updated version Rhino as JavaScript engine, it support
 several ES6 features to help you for better development experience.
 
-# Interface definitions
+# Standard interface definitions
 
-Interface definitions is under `src/main/resources` directory of Rec source code.
+Standadrd interfaces is defined in following files:
 
-`Rec-v2.d.ts`
+[`rec.d.ts`](https://github.com/rec-framework/rec-core/blob/master/rec-core/src/main/resources/rec.d.ts)
 ```typescript
 interface Record {
     get(value: string): string;
     keys(): string[];
 }
-// Same to Java 8 Stream
-interface Stream {
+
+interface Stream { // Java8 stream
+
 }
 
 interface Source {
@@ -32,28 +33,6 @@ interface Target {
 
 interface Tee {
     source(): Source;
-}
-
-interface Rec {
-    pred<T>(pred: (any: T) => boolean): WrappedPredicate<T>;
-    action<T>(func: (any: T) => void): WrappedAction<T>;
-    println(...args: any[]);
-
-    csv(source: string, format: string): Source;
-    stream(stream: Stream): Source;
-
-    target(func: (record: Record) => void): Target;
-    flat(file: string): Target;
-    dummy(): Target;
-
-    counter(condition: (Record) => boolean): ItemCounterTee;
-    unique(...fields: string[]): Tee;
-
-    stateless(func: (record: Record) => void): Tee;
-    stateful<T>(state: T, reducer: (record: Record, state: T) => T): StatefulTee<T>;
-
-    cache(size: number): Tee;
-    collect<T>(collection: T): CollectTee<T>;
 }
 
 interface StatefulTee<T> extends Tee {
@@ -76,7 +55,38 @@ interface WrappedAction<T> {
     apply(value: T): void
 }
 
-declare const rec: Rec;
+export module rec {
+    function pred<T>(pred: (any: T) => boolean): WrappedPredicate<T>;
+
+    function action<T>(func: (any: T) => void): WrappedAction<T>;
+
+    function println(...args: any[]);
+
+    //source
+    function csv(source: string, format: string): Source;
+
+    function stream(stream: Stream): Source;
+
+    // target
+    function target(func: (record: Record) => void): Target;
+
+    function flat(file: string): Target;
+
+    function dummy(): Target;
+
+    //tee
+    function counter(condition: (Record) => boolean): ItemCounterTee;
+
+    function unique(...fields: string[]): Tee;
+
+    function stateless(func: (record: Record) => void): Tee;
+
+    function stateful<T>(state: T, reducer: (record: Record, state: T) => T): StatefulTee<T>;
+
+    function cache(size: number): Tee;
+
+    function collect<T>(collection: T): CollectTee<T>;
+}
 ```
 
 # Core concepts

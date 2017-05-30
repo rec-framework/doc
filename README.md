@@ -5,14 +5,14 @@ for different data source like **plain data file**/**http services**/**database*
 
 ## Get started
 
-Given you have following csv file for employees of a company (`employee.csv`)
+Given you have following csv file for employees of a company ([`employee.csv`](src/index/employee.csv))
 ```csv
 0001, Kimmy Leo  , Software Engineer, 1999/01/09
 0002, Graphy Chan, Project Manager  , 1983/07/04
 0003, Angilina Y , Tech Consultant  , 1996/13/15
 ```
 then you want to check their DOB correct or not, what you can do is just
-write a script(`checking.js`)
+write a script([`checking.js`](src/index/checking.js))
 ```javascript
 const format = java.lang.String.format;
 
