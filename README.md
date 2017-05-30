@@ -1,9 +1,7 @@
 # Rec framework
 
 Rec is a data processing framework focus on stream-based processing
-for different data formats like CSV or JSON. It mainly focus on JVM
-platform and currently migrating to multiple platforms like native
-or .NET Core
+for different data source like **plain data file**/**http services**/**database**/**message queues**.
 
 ## Get started
 
@@ -18,15 +16,25 @@ write a script(`checking.js`)
 ```javascript
 const format = java.lang.String.format;
 
-const {println, csv, stateless, dummy} = rec;
+const {println, csv, stateless, dummy} = require("rec");
 
 csv("employee.csv", "ID, name, job_title, dob")
   .tee(stateless(function({name, dob}) {
-    if (parseInt(dob.split("/")[1]) > 12) {
+    if (dob.split("/")[1] > 12) {
       println(format("Error: employee [%s] has incorrect dob [%s]", 
         name, dob));
     }
   })).to(dummy());
+```
+
+Put the script file and data file under same directory, and just simply run:
+```bash
+java -jar rec-core.jar checking.js
+```
+and the output should be:
+```
+=> Rec v2
+Error: employee [Angilina Y] has incorrect dob [1996/13/15]
 ```
 
 ## Documentations
