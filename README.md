@@ -39,12 +39,12 @@ Error: employee [Angilina Y] has incorrect dob [1996/13/15]
 
 ## Documentations
 
-You can see [guide](/guide.html) or [API document](api.html) for details.
+You can see [guide](guide.html) or [API document](api.html) for details.
 
 For more receipts, you can refer [Best practices](best-practice.html).
 
 ## Contact
 
-Rec-framework and PowerRec projects are maintained by [KimmyLeo](https://github.com/kenpusney).
+Rec-framework and [PowerRec](PowerRec.html) projects are maintained by [KimmyLeo](https://github.com/kenpusney).
 
 For advanced consulting & service, please contact E-mail: **kimmy#typecons.com** (replace # with @).
