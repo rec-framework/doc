@@ -9,86 +9,8 @@ several ES6 features to help you for better development experience.
 # Standard interface definitions
 
 Standadrd interfaces is defined in following files:
-
-[`rec.d.ts`](https://github.com/rec-framework/rec-core/blob/master/rec-core/src/main/resources/rec.d.ts)
 ```typescript
-interface Record {
-    get(value: string): string;
-    keys(): string[];
-}
-
-interface Stream { // Java8 stream
-
-}
-
-interface Source {
-    tee(tee: Tee): Source;
-    to(target: Target);
-    filter(predicate: WrappedPredicate<Record>): Source
-}
-
-interface Target {
-    tee(tee: Tee): Target;
-}
-
-interface Tee {
-    source(): Source;
-}
-
-interface StatefulTee<T> extends Tee {
-    state: T
-}
-
-interface ItemCounterTee extends Tee {
-    count: number;
-}
-
-interface CollectTee<T> extends Tee {
-    collect(): T;
-}
-
-interface WrappedPredicate<T> {
-    test(value: T): boolean
-}
-
-interface WrappedAction<T> {
-    apply(value: T): void
-}
-
-export module rec {
-    function pred<T>(pred: (any: T) => boolean): WrappedPredicate<T>;
-
-    function action<T>(func: (any: T) => void): WrappedAction<T>;
-
-    function println(...args: any[]);
-
-    //source
-    function csv(source: string, format: string): Source;
-
-    function stream(stream: Stream): Source;
-
-    // target
-    function target(func: (record: Record) => void): Target;
-
-    function flat(file: string): Target;
-
-    function dummy(): Target;
-
-    //tee
-    function counter(condition: (Record) => boolean): ItemCounterTee;
-
-    function unique(...fields: string[]): Tee;
-
-    function stateless(func: (record: Record) => void): Tee;
-
-    function stateful<T>(state: T, reducer: (record: Record, state: T) => T): StatefulTee<T>;
-
-    function cache(size: number): Tee;
-
-    function collect<T>(collection: T): CollectTee<T>;
-}
 ```
-
 # Core concepts
 
 ## Record

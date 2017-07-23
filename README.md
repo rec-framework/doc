@@ -16,15 +16,15 @@ write a script([`checking.js`](src/index/checking.js))
 ```javascript
 const format = java.lang.String.format;
 
-const {println, csv, stateless, dummy} = require("rec");
+const rec = require("rec");
 
-csv("employee.csv", "ID, name, job_title, dob")
-  .tee(stateless(function({name, dob}) {
+rec.csv("employee.csv", "ID, name, job_title, dob")
+  .tee(rec.stateless(function({name, dob}) {
     if (dob.split("/")[1] > 12) {
       println(format("Error: employee [%s] has incorrect dob [%s]", 
         name, dob));
     }
-  })).to(dummy());
+  })).to(rec.dummy());
 ```
 
 Put the script file and data file under same directory, and just simply run:
@@ -43,8 +43,10 @@ You can see [guide](guide.html) or [API document](api.html) for details.
 
 For more receipts, you can refer [Best practices](best-practice.html).
 
+See [news](news.html) for update.
+
 ## Contact
 
-Rec-framework and [PowerRec](PowerRec.html) projects are maintained by [KimmyLeo](https://github.com/kenpusney).
+Rec-framework, [PowerRec](PowerRec.html) and [rec-cloud](cloud.html) projects are maintained by [KimmyLeo](https://github.com/kenpusney).
 
 For advanced consulting & service, please contact E-mail: **kimmy#typecons.com** (replace # with @).
